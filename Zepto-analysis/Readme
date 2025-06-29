@@ -1,0 +1,53 @@
+# 🛒 Zepto Grocery Dataset Analysis with PostgreSQL
+
+This project presents an exploratory data analysis of a **Zepto-like grocery product dataset** using SQL (PostgreSQL). The dataset includes over 3,700 grocery items with detailed pricing, stock, weight, and discount information.
+
+---
+
+## 📁 Dataset Overview
+
+- 📦 **Total Records**: 3700+
+- 🎯 **Columns include**:
+  - `name` (product name)
+  - `category` (product category)
+  - `mrp` (maximum retail price in paise)
+  - `discountedSellingPrice`
+  - `discountPercent`
+  - `availableQuantity`
+  - `outOfStock`
+  - `weightInGms`
+  - `sku_id` (unique ID)
+
+---
+
+## 🧪 Key Analyses Performed
+
+### ✅ Data Quality Checks
+- Row count and null value checks
+- Removed products with `MRP = 0` or `discountedSellingPrice = 0`
+- Converted price from **paise to rupees**
+
+### 📊 Product & Category Insights
+- Count of unique product categories
+- Products with duplicate names (inventory depth)
+- Out-of-stock analysis by product and MRP
+- High MRP out-of-stock product filtering
+
+### 💰 Pricing & Discount Insights
+- Top 10 best discounted products
+- Products with **MRP > ₹500** and **discount < 10%**
+- Top 5 categories with the **highest average discount %**
+
+### 📦 Inventory & Weight Insights
+- Total inventory weight per category
+- Products grouped by `WeightInGms` into `Low`, `Medium`, `High`
+- Best value products based on `₹ per gram`
+
+### 💸 Revenue Calculations
+- Total revenue (DiscountedSellingPrice × AvailableQuantity) **by category**
+
+---
+
+### Tools used:
+- PostgreSQL (pgadmin4)
+using this , can help to generate visualization for each query
