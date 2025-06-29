@@ -1,53 +1,110 @@
-# 🛒 Zepto Grocery Dataset Analysis with PostgreSQL
+📊 🔍 **Visualization Ideas**
+Enhance your SQL insights with visualizations using Power BI, Tableau, or Python (Matplotlib / Seaborn).
 
-This project presents an exploratory data analysis of a **Zepto-like grocery product dataset** using SQL (PostgreSQL). The dataset includes over 3,700 grocery items with detailed pricing, stock, weight, and discount information.
+🟢 1. Null Value Check (Data Quality)
+✅ Result: No null values found
 
----
+📈 Chart Suggestion: Pie chart showing percentage of valid vs null values (per column)
 
-## 📁 Dataset Overview
+📦 2. Product Category Distribution
+🧾 Query: SELECT DISTINCT category FROM zepto
 
-- 📦 **Total Records**: 3700+
-- 🎯 **Columns include**:
-  - `name` (product name)
-  - `category` (product category)
-  - `mrp` (maximum retail price in paise)
-  - `discountedSellingPrice`
-  - `discountPercent`
-  - `availableQuantity`
-  - `outOfStock`
-  - `weightInGms`
-  - `sku_id` (unique ID)
+📈 Chart: Bar chart showing number of products per category
 
----
+❌ 3. Out-of-Stock Products
+🧾 Query: SELECT outOfStock, COUNT(sku_id) FROM zepto GROUP BY outOfStock
 
-## 🧪 Key Analyses Performed
+📈 Chart: Donut or pie chart — In Stock vs Out of Stock
 
-### ✅ Data Quality Checks
-- Row count and null value checks
-- Removed products with `MRP = 0` or `discountedSellingPrice = 0`
-- Converted price from **paise to rupees**
+🔁 4. Duplicate Product Names (Inventory Depth)
+🧾 Query: SELECT name, COUNT(sku_id) FROM zepto GROUP BY name HAVING COUNT(sku_id) > 1
 
-### 📊 Product & Category Insights
-- Count of unique product categories
-- Products with duplicate names (inventory depth)
-- Out-of-stock analysis by product and MRP
-- High MRP out-of-stock product filtering
+📈 Chart: Horizontal bar chart — Product Name vs Stock Count
 
-### 💰 Pricing & Discount Insights
-- Top 10 best discounted products
-- Products with **MRP > ₹500** and **discount < 10%**
-- Top 5 categories with the **highest average discount %**
+💰 5. Top 10 Discounted Products
+🧾 Query: ORDER BY discountPercent DESC LIMIT 10
 
-### 📦 Inventory & Weight Insights
-- Total inventory weight per category
-- Products grouped by `WeightInGms` into `Low`, `Medium`, `High`
-- Best value products based on `₹ per gram`
+📈 Chart: Column chart — Product vs Discount %
 
-### 💸 Revenue Calculations
-- Total revenue (DiscountedSellingPrice × AvailableQuantity) **by category**
+🚫 6. High MRP Products That Are Out of Stock
+🧾 Query: WHERE outOfStock = TRUE ORDER BY mrp DESC
 
----
+📈 Chart: Bar chart — Product vs MRP
 
-### Tools used:
-- PostgreSQL (pgadmin4)
-using this , can help to generate visualization for each query
+⚖️ 7. Best ₹ per Gram Products
+🧾 Query: ROUND(discountedSellingPrice / weightInGms, 2) AS pricePerGram
+
+📈 Chart: Scatter plot — Weight vs ₹/Gram (Value comparison)
+
+📊 8. Total Revenue by Category
+🧾 Query: SUM(discountedSellingPrice * availableQuantity) GROUP BY category
+
+📈 Chart: Bar chart — Category vs Revenue
+
+🧊 9. Weight Category Classification
+🧾 Query: CASE WHEN weightInGms < 1000 THEN 'Low' ...
+
+📈 Chart: Pie chart — Low / Medium / High weight classes
+
+🏆 10. Top 5 Categories by Avg Discount
+🧾 Query: SELECT category, AVG(discountPercent) GROUP BY category
+
+📈 Chart: Bar chart — Category vs Avg Discount %
+
+
+ 📊 🔍 Visualization Ideas
+Enhance your SQL insights with visualizations using Power BI, Tableau, or Python (Matplotlib / Seaborn).
+
+🟢 1. Null Value Check (Data Quality)
+✅ Result: No null values found
+
+📈 Chart Suggestion: Pie chart showing percentage of valid vs null values (per column)
+
+📦 2. Product Category Distribution
+🧾 Query: SELECT DISTINCT category FROM zepto
+
+📈 Chart: Bar chart showing number of products per category
+
+❌ 3. Out-of-Stock Products
+🧾 Query: SELECT outOfStock, COUNT(sku_id) FROM zepto GROUP BY outOfStock
+
+📈 Chart: Donut or pie chart — In Stock vs Out of Stock
+
+🔁 4. Duplicate Product Names (Inventory Depth)
+🧾 Query: SELECT name, COUNT(sku_id) FROM zepto GROUP BY name HAVING COUNT(sku_id) > 1
+
+📈 Chart: Horizontal bar chart — Product Name vs Stock Count
+
+💰 5. Top 10 Discounted Products
+🧾 Query: ORDER BY discountPercent DESC LIMIT 10
+
+📈 Chart: Column chart — Product vs Discount %
+
+🚫 6. High MRP Products That Are Out of Stock
+🧾 Query: WHERE outOfStock = TRUE ORDER BY mrp DESC
+
+📈 Chart: Bar chart — Product vs MRP
+
+⚖️ 7. Best ₹ per Gram Products
+🧾 Query: ROUND(discountedSellingPrice / weightInGms, 2) AS pricePerGram
+
+📈 Chart: Scatter plot — Weight vs ₹/Gram (Value comparison)
+
+📊 8. Total Revenue by Category
+🧾 Query: SUM(discountedSellingPrice * availableQuantity) GROUP BY category
+
+📈 Chart: Bar chart — Category vs Revenue
+
+🧊 9. Weight Category Classification
+🧾 Query: CASE WHEN weightInGms < 1000 THEN 'Low' ...
+
+📈 Chart: Pie chart — Low / Medium / High weight classes
+
+🏆 10. Top 5 Categories by Avg Discount
+🧾 Query: SELECT category, AVG(discountPercent) GROUP BY category
+
+📈 Chart: Bar chart — Category vs Avg Discount %
+
+
+Tools used:
+PostgresSql(pgadmin4) for sql query (analysis)
